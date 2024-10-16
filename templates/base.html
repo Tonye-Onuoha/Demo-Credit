@@ -1,0 +1,32 @@
+**base template**
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="{% static 'css/lendsqr.css' %}" rel="stylesheet">
+        <title>Wallet</title>
+    </head>
+    <body class="fredoka-font">
+        <header class="bg-dark text-white text-center text-lg p-4">Demo Credit</header>
+        <nav class="navigation">
+            {% if user.is_authenticated %}
+            <form class="logout-form mt-2" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="text-reset btn btn-link btn-secondary btn-sm">Logout</button>
+            </form>
+            {% endif %}
+        </nav>
+        <main>
+            {% block content %}
+            {% endblock content %}
+        </main>
+        <footer class="text-center text-white bg-dark p-3">&#169 Copyright 2024</footer>
+    </body>
+</html>
