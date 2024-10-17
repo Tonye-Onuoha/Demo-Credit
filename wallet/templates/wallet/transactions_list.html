@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div>
+        <h3 class="text-secondary text-center mt-3 mb-3">Past Transactions</h3>
+        <hr>
+        <div style="background-color: #2E2E2E; color: white;" class="transactions-list border rounded mb-3">
+            {% if user_transactions %}
+                <ul>
+                {% for transaction in user_transactions %}
+                    <li><p class="text-center mt-4">{{ transaction.details }} on {{ transaction.date }}</p></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <h5>You do not have any previous transactions</h5>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
