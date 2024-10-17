@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    {% if savings_wallet %}
+    <div class="container homepage">
+        <h2 class="text-center mt-1">Wallet Balance</h2>
+        <div style="color: dodgerblue"><p>Hello {{ savings_wallet.first_name }} {{ savings_wallet.last_name }} , welcome to your dashboard.</p></div>
+        <div class="dashboard mb-2">
+            <div class="balance">
+                <h3>Balance: &#8358;{{ savings_wallet.balance }} Naira</h3>
+            </div>
+            <div class="transactions">
+                <div><a href="{% url 'fund-new' %}" role="button" class="btn btn-primary btn-lg">Fund Account</a></div>
+                <div><a href="{% url 'transfer-funds' %}" role="button" class="btn btn-primary btn-lg">Transfer Funds</a></div>
+                <div><a href="{% url 'withdraw-funds' %}" role="button" class="btn btn-primary btn-lg">Withdraw Funds</a></div>
+            </div>
+            <div class="payment-history p-2">
+                <h4>Payment history</h4>
+                <div class="recent-history">
+                    {% if transactions_history %}
+                    <p>These are your most recent transactions:</p>
+                        <ul>
+                        {% for transaction in transactions_history %}
+                            <li>{{ transaction.details }} on {{ transaction.date}}</li>
+                        {% endfor %}
+                        </ul>
+                    <p>To see a full list of all transactions on your account, <a href="{% url 'user-transactions' %}" role="button" class="btn btn-info text-white">click here</a></p>
+                    {% else %}
+                    <p>You have no recent transactions.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="container">
+        <div style="color: limegreen"><p>Hello <b>{{ user.first_name }}</b>, welcome to your homepage.</p></div>
+        <div class="introduction-page border rounded mb-2">
+            <p style="color: crimson" class="text-center mt-3 mb-3">You don't seem to have any wallet available, please create a new wallet now!</p>
+            <div class="create-wallet p-3">
+                <div class="border rounded wallet-one">
+                    <div class="wallet-one-item">
+                        <div>
+                            <a href="{% url 'create-default-wallet' %}" role="button" class="btn btn-primary btn-lg">Create</a>
+                        </div>
+                        <div class="text-center mt-2">Create with account information</div>
+                    </div>
+                </div>
+                <div class="border rounded wallet-two">
+                    <div class="wallet-two-item">
+                        <div>
+                            <a href="{% url 'create-custom_wallet' %}" role="button" class="btn btn-primary btn-lg">Create</a>
+                        </div>
+                        <div class="text-center mt-2">Create with new information</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}
