@@ -97,19 +97,6 @@ DATABASES = {
     }
 }
 
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lendsqr_db',
-        'USER': 'root',
-        'PASSWORD': 'HUGOBOSS77',
-        'PORT': '3306',
-        'HOST': '127.0.0.1',
-    }
-}
-"""
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
