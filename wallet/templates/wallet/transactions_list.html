@@ -7,13 +7,15 @@
         <hr>
         <div style="background-color: #2E2E2E; color: white;" class="transactions-list border rounded mb-3">
             {% if user_transactions %}
-                <ul>
+            <ul>
                 {% for transaction in user_transactions %}
-                    <li><p class="text-center mt-4">{{ transaction.details }} on {{ transaction.date }}</p></li>
+                <li>
+                    <p class="text-center mt-4">{{ transaction.details }} on {{ transaction.date }}</p>
+                </li>
                 {% endfor %}
-                </ul>
+            </ul>
             {% else %}
-                <h5>You do not have any previous transactions</h5>
+            <h5>You do not have any previous transactions</h5>
             {% endif %}
         </div>
     </div>

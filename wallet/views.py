@@ -29,7 +29,9 @@ class HomePageView(LoginRequiredMixin, ListView):
         # Add in a QuerySet of the last five transactions.
         try:
             user_savings_wallet = Savings.objects.get(user_id=self.request.user)
-            user_transactions = Transactions.objects.filter(savings_id=user_savings_wallet).order_by('-date')[:5]
+            user_transactions = Transactions.objects.filter(
+                savings_id=user_savings_wallet
+            ).order_by("-date")[:5]
         except Savings.DoesNotExist:
             context["transactions_history"] = None
         else:
@@ -47,11 +49,13 @@ class UserTransactionsView(LoginRequiredMixin, ListView):
     model = Transactions
     context_object_name = "user_transactions"
     template_name = "wallet/transactions_list.html"
-    
+
     def get_queryset(self):
         try:
             user_savings_wallet = Savings.objects.get(user_id=self.request.user)
-            user_transactions = Transactions.objects.filter(savings_id=user_savings_wallet).order_by('-date')
+            user_transactions = Transactions.objects.filter(
+                savings_id=user_savings_wallet
+            ).order_by("-date")
         except Savings.DoesNotExist:
             return None
         else:
@@ -68,7 +72,7 @@ def default_wallet(request):
             user_id=request.user,
         )
         return redirect(reverse("home"))
-    return render(request, "wallet/confirm_default.html")
+    return render(request, "wallet/create_default.html")
 
 
 @login_required
@@ -84,7 +88,7 @@ def custom_wallet(request):
     else:
         form = SavingsForm()
     context = {"form": form}
-    return render(request, "wallet/create_new.html", context)
+    return render(request, "wallet/create_custom.html", context)
 
 
 @login_required

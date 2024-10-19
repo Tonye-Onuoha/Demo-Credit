@@ -4,9 +4,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from .views import (
-    users_list,
     register_user,
-    savings_list,
     savings_detail,
     create_savings,
     fund_savings,
@@ -31,8 +29,8 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("register/", register_user, name="register-user"),
-    path("users/", users_list, name="users-list"), # remember to remove
-    path("savings/", savings_list, name="savings"), # remember to remove
+    #path("users/", users_list, name="users-list"), # remember to remove
+   # path("savings/", savings_list, name="savings"), # remember to remove
     path("create-savings/", create_savings, name="create-savings"),
     path("savings-details/", savings_detail, name="savings-details"),
     path("fund-savings/", fund_savings, name="fund-savings"),
