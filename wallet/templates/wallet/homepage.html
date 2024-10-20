@@ -38,7 +38,7 @@
     {% else %}
     <div class="container">
         <div style="color: limegreen">
-            <p>Hello <b>{{ user.first_name }}</b>, welcome to your homepage.</p>
+            <p>Hello <b>{% firstof user.first_name user %}</b>, welcome to your homepage.</p>
         </div>
         <div class="introduction-page border rounded mb-2">
             <p style="color: crimson" class="text-center mt-3 mb-3">You don't seem to have any wallet available, please create a new wallet now!</p>

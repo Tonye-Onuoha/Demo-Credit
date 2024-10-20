@@ -92,8 +92,13 @@ WSGI_APPLICATION = "LENDSQR.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "lendsqr_db",
+        "USER": os.environ.get("USER"),
+        "PASSWORD": os.environ.get("PASSWORD"),
+        "PASSWORD": "HUGOBOSS77",
+        "PORT": "3306",
+        "HOST": "127.0.0.1",
     }
 }
 
@@ -122,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Africa/Lagos"
 
 USE_I18N = True
 
@@ -171,6 +176,7 @@ AWS_DEFAULT_ACL = None
 
 # STORAGES
 
+
 STORAGES = {
     # media files (images)
     "default": {
@@ -197,4 +203,4 @@ REST_FRAMEWORK = {
 
 # dj_rest_auth
 
-ACCOUNT_LOGOUT_ON_GET = True  # log-out via GET method and deletes the token.
+# ACCOUNT_LOGOUT_ON_GET = True  # log-out via GET method and deletes the token.
