@@ -96,7 +96,6 @@ DATABASES = {
         "NAME": "lendsqr_db",
         "USER": os.environ.get("USER"),
         "PASSWORD": os.environ.get("PASSWORD"),
-        "PASSWORD": "HUGOBOSS77",
         "PORT": "3306",
         "HOST": "127.0.0.1",
     }
