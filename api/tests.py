@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 from wallet.models import Savings, Transactions
 from rest_framework import status
 
-# Create your tests here.
-
+# The following classes handle tests for the API.
 
 class RegisterUserAndLoginAPITests(APITestCase):
     """
@@ -22,7 +21,9 @@ class RegisterUserAndLoginAPITests(APITestCase):
         response = self.client.post(url, data, format="json")
         # assert status code and response data
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data, {'id': 1, 'username': 'john', 'email': 'johndoe@gmail.com'})
+        self.assertEqual(
+            response.data, {"id": 1, "username": "john", "email": "johndoe@gmail.com"}
+        )
         self.assertEqual(User.objects.count(), 1)
         expected_username = "john"
         self.assertEqual(User.objects.all().first().username, expected_username)
@@ -41,7 +42,9 @@ class RegisterUserAndLoginAPITests(APITestCase):
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
-    def test_user_provides_valid_credentials_and_receives_token_after_successful_login(self):
+    def test_user_provides_valid_credentials_and_receives_token_after_successful_login(
+        self,
+    ):
         # setup a user for our tests.
         User.objects.create_user(
             username="john", email="johndoe@gmail.com", password="LENDSQR001"
@@ -94,7 +97,9 @@ class CreateSavingsWalletAPITests(APITestCase):
         response = self.client.post("/api/create-savings/", data, format="json")
         # assert status code and response data
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        self.assertEqual(response.data, {'first_name': 'John', 'last_name': 'Doe', 'user_id': 'john'})
+        self.assertEqual(
+            response.data, {"first_name": "John", "last_name": "Doe", "user_id": "john"}
+        )
         # assert user now has savings wallet.
         savings = Savings.objects.all()
         self.assertEqual(len(savings), 1)
@@ -420,7 +425,9 @@ class TransferFundsAPITests(APITestCase):
         response = self.client.put(url, data, format="json")
         # assert transfer was successful.
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, {'amount': '300.00', 'email': 'janedoe@gmail.com'})
+        self.assertEqual(
+            response.data, {"amount": "300.00", "email": "janedoe@gmail.com"}
+        )
         # retrieve both saving-wallets.
         user1_savings_wallet = Savings.objects.get(user_id=self.user1)
         user2_savings_wallet = Savings.objects.get(user_id=self.user2)
@@ -502,18 +509,19 @@ class UserTransactionsAPITests(APITestCase):
         )
         transactions = Transactions.objects.all()
         self.assertEqual(len(transactions), 1)
-        
+
+
 class LogoutAPITests(APITestCase):
     """
     These tests ensure that users can log out successfully.
     """
-    
+
     def setUp(self):
         # setup a new user for our test.
         User.objects.create_user(
             username="john", email="johndoe@gmail.com", password="LENDSQR001"
         )
-        
+
     def test_user_can_login(self):
         # login user to retrieve token.
         url = "/api-dj-rest-auth/login/"
@@ -523,8 +531,8 @@ class LogoutAPITests(APITestCase):
         }
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertTrue('key' in response.data)
-        
+        self.assertTrue("key" in response.data)
+
     def test_user_can_logout(self):
         # login user to retrieve token.
         url = "/api-dj-rest-auth/login/"
@@ -545,10 +553,8 @@ class LogoutAPITests(APITestCase):
         }
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['detail'] , "Successfully logged out.")
+        self.assertEqual(response.data["detail"], "Successfully logged out.")
         # assert user cannot make further requests as token is now invalid
-        response = self.client.get('/api/transactions/')
-        self.assertEqual(str(response.data["detail"]), 'Invalid token.')
-        
-        
+        response = self.client.get("/api/transactions/")
+        self.assertEqual(str(response.data["detail"]), "Invalid token.")
         

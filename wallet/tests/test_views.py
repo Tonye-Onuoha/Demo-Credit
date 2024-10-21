@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from wallet.models import Savings, Transactions
 from django.urls import reverse
 
-# Create your tests here.
+# The following classes handle tests for the views.
+
 class HomePageViewTest(TestCase):
     """This subclass is used to test the homepage view."""
 

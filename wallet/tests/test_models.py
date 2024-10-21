@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from wallet.models import Savings, Transactions
 
-# Create your tests here.
+# The following classes handle tests for the models.
+
 class SavingsModelTest(TestCase):
     """This subclass tests the model used for creating instances of a savings wallet."""
 

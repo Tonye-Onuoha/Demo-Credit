@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from wallet.models import Savings
 from wallet.forms import SavingsForm, FundsForm, TransferForm
 
-# Create your tests here.
+# The following classes handle tests for the forms.
+
 class SavingsFormTest(SimpleTestCase):
     """This subclass tests the functionality of the form used for creating a wallet."""
 

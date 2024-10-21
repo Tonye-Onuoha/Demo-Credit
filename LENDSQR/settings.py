@@ -14,21 +14,26 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
+load_dotenv()  # take environment variables from .env.
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv()  # take environment variables from .env.
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
+
 DEBUG = os.environ.get("DEBUG", None) or "False" != "False"
 
-ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split()
 
 
 # Application definition
@@ -93,12 +98,12 @@ WSGI_APPLICATION = "LENDSQR.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "lendsqr_db",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "demo_credit_postgresql_db",
+        "HOST": os.environ.get("HOST"),
         "USER": os.environ.get("USER"),
         "PASSWORD": os.environ.get("PASSWORD"),
-        "PORT": "3306",
-        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
 }
 
@@ -176,7 +181,6 @@ AWS_DEFAULT_ACL = None
 
 # STORAGES
 
-
 STORAGES = {
     # media files (images)
     "default": {
@@ -187,6 +191,7 @@ STORAGES = {
         "BACKEND": "storages.backends.s3.S3Storage",
     },
 }
+
 
 # CORS
 
@@ -203,4 +208,3 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication"  # enable token authentication
     ],
 }
-
