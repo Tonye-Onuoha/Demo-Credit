@@ -50,12 +50,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "dj_rest_auth",
-    "drf_yasg",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -187,6 +188,10 @@ STORAGES = {
     },
 }
 
+# CORS
+
+CORS_ALLOW_ALL_ORIGINS: True
+
 
 # REST FRAMEWORK
 
@@ -199,7 +204,3 @@ REST_FRAMEWORK = {
     ],
 }
 
-
-# dj_rest_auth
-
-# ACCOUNT_LOGOUT_ON_GET = True  # log-out via GET method and deletes the token.
