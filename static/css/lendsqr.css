@@ -1,15 +1,23 @@
 .fredoka-font {
-  font-family: "Fredoka", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
+    font-family: "Fredoka", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
 }
 
-.signup-form, .login-form {
-    min-height: 400px;
+.signup-form,
+.login-form {
+    min-height: 450px;
     border-radius: 3px;
     padding: 5px;
+}
+
+.logout {
+    min-height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .navigation {
@@ -19,7 +27,7 @@
 }
 
 .introduction-page {
-    height: 400px;
+    height: 450px;
 }
 
 .default-form {
@@ -51,7 +59,6 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 100%;
     grid-column-gap: 10px;
-    /*border: 1px solid red;*/
     height: 75%;
 }
 
@@ -60,15 +67,16 @@
     width: 100%;
 }
 
-.wallet-one, .wallet-two {
+.wallet-one,
+.wallet-two {
     display: grid;
     place-content: center;
 }
 
-.wallet-one-item, .wallet-two-item {
+.wallet-one-item,
+.wallet-two-item {
     width: 250px;
 }
-
 
 .dashboard {
     display: grid;
@@ -99,20 +107,21 @@
     border-radius: 3px;
 }
 
-
 .transactions a {
     display: inline-block;
     width: 200px;
 }
 
-.fund-form, .withdraw-form, transfer-form, .transactions-list {
+.fund-form,
+.withdraw-form,
+transfer-form,
+.transactions-list {
     min-height: 400px;
 }
 
-
 .payment-history {
     background-color: gray;
-    color: #FFFFFF;
+    color: #ffffff;
     outline: 2px solid darkgray;
     border-radius: 3px;
 }
@@ -123,14 +132,8 @@
     align-content: center;
 }
 
-.logout {
-    min-height: 500px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-button[type='submit'], button[type='reset'] {
+button[type="submit"],
+button[type="reset"] {
     margin-left: 15px;
     width: 100px;
 }
