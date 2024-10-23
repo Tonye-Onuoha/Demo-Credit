@@ -260,6 +260,19 @@ Tonye Hugo Onuoha – [Email] : tonyeonuoha@gmail.com
 
 Below are the most recent changes made throughout the entire project:
 
+-   commit f0372a282378c0d2a871c8623277f3bf5c2fca74 (HEAD -> master)
+    Author: Tonye Hugo Onuoha <tonyeonuoha@gmail.com>
+    Date:   Wed Oct 23 04:05:22 2024 -0700
+
+    -   Updated README file
+
+
+-   commit 1bceeb79092a56d03905e25d30518b2060aa6b3f (origin/master)
+    Author: Tonye Hugo Onuoha <tonyeonuoha@gmail.com>
+    Date:   Wed Oct 23 03:43:41 2024 -0700
+
+    -   Added README file
+
 -   commit ad9070221b4c04812705d1c30b226a93451a975d (HEAD -> master, origin/master)
     Author: Tonye Hugo Onuoha <tonyeonuoha@gmail.com>
     Date:   Tue Oct 22 03:02:15 2024 -0700
@@ -331,24 +344,6 @@ Below are the most recent changes made throughout the entire project:
     Date:   Fri Oct 18 04:35:00 2024 -0700
 
     -   Created serializers for api app
-
--   commit 9450767bd9770a485e25edb5caa500034104ccdf
-    Author: Tonye Hugo Onuoha <tonyeonuoha@gmail.com>
-    Date:   Fri Oct 18 00:43:01 2024 -0700
-
-    -   Created tests for all views in wallet app
-
--   commit 3dc0ff9227fb6f7854bafbb946b2c854b68e6c89
-    Author: Tonye Hugo Onuoha <tonyeonuoha@gmail.com>
-    Date:   Thu Oct 17 23:51:59 2024 -0700
-
-    -   Created tests for models in wallet app
-
--   commit 5a07aee26e5373f6e1175fca5e662ee62f61e602
-    Author: Tonye Hugo Onuoha <tonyeonuoha@gmail.com>
-    Date:   Thu Oct 17 05:37:19 2024 -0700
-
-    -   Created tests for all forms in wallet app
 
 
 
