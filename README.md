@@ -17,7 +17,7 @@
 ## Project Description: 
 Demo Credit is a mobile lending app that requires wallet functionality. This is needed as borrowers need a wallet to receive the loans they have been granted and also send the money for repayments.
 
-**Implementation Details**
+## Implementation Details
   ### STEP 1: Understanding the project idea
 - What is the project about ? 
     You are required to build an MVP wallet service application called Demo Credit.
@@ -57,7 +57,7 @@ Demo Credit is a mobile lending app that requires wallet functionality. This is 
     
     The approach taken is outlined as follows:
     
-    **DATABASE DESIGN**
+    **DATABASE DESIGN**:
     I started the project by considering the database design in terms of how many database tables I would need and how these tables would be related to one another. I concluded that I would need three seperate database tables named "Users", "Savings" and "Transactions" to store all the necessary data required for the entire application.
     
     The "Users" table would be used to store the information of all the users who successfully signed-up on the platform (the exception being those who were found on the Karma blacklist via the Adjutor API). It would contain fields including (but not limited to) the first name, last name, email address etc.
@@ -68,9 +68,9 @@ Demo Credit is a mobile lending app that requires wallet functionality. This is 
     
     The source code for the implementation is located in the "models.py" module of the "wallet" directory in the BASE directory of this application (LENDSQR - same location as this README file).
     
-    FILE PATH : "LENDSQR/wallet/models.py"
+    **FILE PATH** : "LENDSQR/wallet/models.py"
     
-    **USER INPUT AND FORMS**
+    **USER INPUT AND FORMS**:
     I then began to consider how I planned on collecting user data, as well as data-processing and validation. From the sign up process, I knew that I would require the standard user information necessary for validation. This also included asking for an email address which I would then use to verify if the user had already been blacklisted via the Adjutor API. Once these details had been verified and confirmed valid, an account would be created and the user would then be able to log into their newly created account on the platform using those validated credentials.
     
     Once the user is logged in, the next step would be to provide them with a means with which they could create a savings-wallet, as this isn't something that is created automatically upon sign-up. This makes sense because a user shouldn't have a wallet created automatically unless the user really wanted one. I provided the users with two options, one with which they could have a wallet quickly created using their default credentials without much hassle, and another that displays a form with which they could provide custom credentials used to create their wallets.
@@ -82,23 +82,23 @@ Demo Credit is a mobile lending app that requires wallet functionality. This is 
     
     The source code for the implementation is located in the "forms.py" module of the "wallet" directory in the BASE directory of this application (LENDSQR - same location as this README file).
     
-    FILE PATH : "LENDSQR/wallet/forms.py"
+    **FILE PATH** : "LENDSQR/wallet/forms.py"
     
-    **URL ROUTES & TEMPLATES**
+    **URL ROUTES & TEMPLATES**:
     As far as the routes are concerned, each task i.e funding an account, transfers, and withdrawals will all have their own specific url and html-template associated with them. Each template will render the appropriate form needed to carry out the operation. The homepage would be dynamic, containing the appropriate wallet information belonging to the currently logged-in users, as well as a link to a route that displays their past wallet transactions.
     
     The source code for the implementation is located in the "urls.py" module, as well as the "templates" folder of the "wallet" directory in the BASE directory of this application (LENDSQR - same location as this README file).
     
-    URLS FILE PATH : "LENDSQR/wallet/urls.py"
+    **URLS FILE PATH** : "LENDSQR/wallet/urls.py"
     
-    TEMPLATES FILE PATH : "LENDSQR/wallet/templates/wallet"
+    **TEMPLATES FILE PATH** : "LENDSQR/wallet/templates/wallet"
     
-    **TESTS (UNIT AND INTEGRATION)**
+    **TESTS (UNIT AND INTEGRATION)**:
     Last but definitely not least, I will have to test that the core functionality of the application works as expected, including verifying that each form validates the required input, as well as ensuring that all aspects of the application work together as a whole.
     
     The source codes for the implementation (which is divided into three seperate modules) is located in the "tests" folder of the "wallet" directory in the BASE directory of this application (LENDSQR - same location as this README file).
     
-    FILE PATH : "LENDSQR/wallet/tests"
+    **FILE PATH** : "LENDSQR/wallet/tests"
     
     #### II. API DEVELOPMENT
     Once I had concluded the development of the minimal web application, I proceeded to begin working on the actual web API as I now had a much better understanding of how its implementation should be carried out.
@@ -107,26 +107,26 @@ Demo Credit is a mobile lending app that requires wallet functionality. This is 
     
     The approach taken is outlined as follows:
     
-    **DATABASE DESIGN**
+    **DATABASE DESIGN**:
     The database design for the API is the same as the one for the web application above as they both make use of the same underlying back-end database.
     
     The source code for the implementation is located in the "models.py" module of the "wallet" directory in the BASE directory of this application (LENDSQR - same location as this README file).
     
-    FILEPATH : "LENDSQR/wallet/models.py"
+    **FILE PATH** : "LENDSQR/wallet/models.py"
     
-    **AUTHENTICATION**
+    **AUTHENTICATION**:
     I also implemented a token authentication setup using django rest-framework which ensures that all requests made via API endpoints that require authentication provide a token via the http "AUTHORIZATION" header before they can be granted access to a restricted resource. 
     
     This setting can also be viewed at the bottom of the project's "settings.py" module located in a directory with the same name as the base directory (LENDSQR).
     
-    FILE PATH : "LENDSQR/LENDSQR/settings.py"
+    **FILE PATH** : "LENDSQR/LENDSQR/settings.py"
     
-    **PERMISSIONS**
+    **PERMISSIONS**:
     On a project-level, I implemented an 'AllowAny' permissions setup using django rest-framework which grants unrestricted resource access to non-authorized users via the API.
     
     This setting, like that of authentication, can also be viewed at the bottom of the project settings module located in a directory with the same name as the BASE directory (LENDSQR). Another 'IsAuthenticated' permissions setup was applied to specific endpoints, requiring that the HTTP requests made on those endpoints provided some sort of authentication (token authentication to be specific).
     
-    **SERIALIZERS**
+    **SERIALIZERS**:
     Serializers marshal between complex types like model instances, and python primitives. Basically what this means is that they enable us to take our database records which take the form of model instances (i.e objects) in python, to be converted to primitive data types which can then be rendered to different content-types in a HTTP response. They also enable parsed data in a HTTP request to be validated and either used to create or update a database record. 
     The process of marshalling between python primitives and request and response content is handled by parsers and renderers.
     
@@ -134,9 +134,9 @@ Demo Credit is a mobile lending app that requires wallet functionality. This is 
     
     The source code for the implementation is located in the "serializers.py" module of the "api" directory in the BASE directory of this application (LENDSQR - same location as this README file).
     
-    FILE PATH : "LENDSQR/api/serializers.py"
+    **FILE PATH** : "LENDSQR/api/serializers.py"
     
-    **ENDPOINTS**
+    **ENDPOINTS**:
     Arguably the most standout feature of every API, endpoints are very crucial to API development seeing as they provide the entry-point to access specific data/resources located on a database.
     
     There are nine (8) different endpoints on this API, most of which require authentication before further access can be granted.
@@ -172,16 +172,16 @@ Demo Credit is a mobile lending app that requires wallet functionality. This is 
     
     The source code for the implementation is located in the "urls.py" module of the "api" directory in the BASE directory of this application (LENDSQR - same location as this README file).
     
-    FILE PATH : "LENDSQR/api/urls.py"
+    **FILE PATH** : "LENDSQR/api/urls.py"
     
     *NOTE*: Read the next section to get the link to the full **API documentation**.
 
-    **TESTS**
+    **TESTS**:
     Again, last but definitely not least, I will have to test that the core functionality of the API works as expected, including but not limited to ensuring that authenticated endpoints validate tokens, verifying that each of the endpoints validate the required HTTP POST/PUT data via serializers and return the correct response data/errors, as well as ensuring that all the tasks mentioned in step 2 of this project description (Understanding the project functionality) can be accomplished.
     
     The source code for the implementation is located in the "tests.py" module of the "api" directory in the BASE directory of this application (LENDSQR - same location as this README file).
     
-    FILE PATH : "LENDSQR/api/tests.py"
+    **FILE PATH** : "LENDSQR/api/tests.py"
     
 
 ## API Documentation
@@ -209,7 +209,7 @@ $ python -m pip install Django
 On Windows:
 
 ```sh
-PS> py -m pip install Django
+...\> py -m pip install Django
 ```
 
 
@@ -242,18 +242,6 @@ Demo Credit uses the following technologies and tools:
 ## Dependencies
 
 - Please refer to the **requirements.txt** file in this same directory for all the project's dependencies.
-
-
-## Contributing
-
-To contribute to the development of Demo Credit, follow the steps below:
-
-1. Fork Demo Credit from https://github.com/Tonye-Onuoha/Demo-Credit/fork>
-2. Create your feature branch (`git checkout -b feature-new`)
-3. Make your changes
-4. Commit your changes (`git commit -am 'Add some new feature'`)
-5. Push to the branch (`git push origin feature-new`)
-6. Create a new pull request
 
 
 ## Contributors
