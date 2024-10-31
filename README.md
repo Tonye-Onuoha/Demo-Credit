@@ -8,7 +8,6 @@
 - [Execution/Usage](#execution--usage)
 - [Technologies](#technologies)
 - [Dependencies](#dependencies)
-- [Contributing](#contributing)
 - [Contributors](#contributors)
 - [Author](#author)
 - [Change log](#change-log)

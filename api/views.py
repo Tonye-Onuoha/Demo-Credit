@@ -16,7 +16,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import serializers
 
-# Create your views here.
+# The following views handle the API requests and return appropiate responses.
+
 @api_view(["POST"])
 def register_user(request, format=None):
     if request.method == "POST":
@@ -59,7 +60,14 @@ def fund_savings(request, format=None):
         if serializer.is_valid():
             serializer.validated_data["savings_owner"] = request.user
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            amount = serializer.validated_data.get("amount")
+            return Response(
+                {
+                    "status": "success",
+                    "message": f"You have successfully funded your account with {amount} naira.",
+                },
+                status=status.HTTP_200_OK,
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -71,7 +79,14 @@ def withdraw_funds(request, format=None):
         if serializer.is_valid():
             serializer.validated_data["savings_owner"] = request.user
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
+            amount = serializer.validated_data.get("amount")
+            return Response(
+                {
+                    "status": "success",
+                    "message": f"You have successfully withdrawn {amount} naira from your account.",
+                },
+                status=status.HTTP_200_OK,
+            )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -89,7 +104,15 @@ def transfer_funds(request, format=None):
             serializer = TransferFundsSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save(request_user=request.user)
-                return Response(serializer.data, status=status.HTTP_200_OK)
+                amount = serializer.validated_data.get("amount")
+                beneficiary_email = serializer.validated_data.get("email")
+                return Response(
+                    {
+                        "status": "success",
+                        "message": f"You have successfully transferred {amount} naira from your account to {beneficiary_email}.",
+                    },
+                    status=status.HTTP_200_OK,
+                )
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

@@ -1,10 +1,10 @@
-from django.test import TestCase
 from rest_framework.test import APITestCase
 from django.contrib.auth.models import User
 from wallet.models import Savings, Transactions
 from rest_framework import status
 
 # The following classes handle tests for the API.
+
 
 class RegisterUserAndLoginAPITests(APITestCase):
     """
@@ -19,7 +19,7 @@ class RegisterUserAndLoginAPITests(APITestCase):
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # assert status code and response data
+        # assert status code and response data.
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(
             response.data, {"id": 1, "username": "john", "email": "johndoe@gmail.com"}
@@ -33,7 +33,7 @@ class RegisterUserAndLoginAPITests(APITestCase):
         User.objects.create_user(
             username="john", email="johndoe@gmail.com", password="LENDSQR001"
         )
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
@@ -49,14 +49,14 @@ class RegisterUserAndLoginAPITests(APITestCase):
         User.objects.create_user(
             username="john", email="johndoe@gmail.com", password="LENDSQR001"
         )
-        # login to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # assert token is provided
+        # assert token key is provided
         self.assertTrue("key" in response.data)
 
 
@@ -82,16 +82,16 @@ class CreateSavingsWalletAPITests(APITestCase):
         )
 
     def test_user_creates_savings_wallet(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # create savings wallet.
         data = {"first_name": "John", "last_name": "Doe"}
         response = self.client.post("/api/create-savings/", data, format="json")
@@ -133,16 +133,16 @@ class CheckSavingsDetailsAPITests(APITestCase):
         )
 
     def test_user1_has_savings_wallet(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # retrieve user savings wallet details.
         url = "/api/savings-details/"
         response = self.client.get(url)
@@ -158,16 +158,16 @@ class CheckSavingsDetailsAPITests(APITestCase):
         )
 
     def test_user2_has_no_savings_wallet(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "jane",
             "password": "1X<ISRUkw+tuK",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # retrieve user savings wallet details.
         url = "/api/savings-details/"
         response = self.client.get(url)
@@ -200,16 +200,16 @@ class FundSavingsAPITests(APITestCase):
         )
 
     def test_user_cannot_fund_savings_wallet_with_invalid_data(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # fund savings wallet.
         url = "/api/fund-savings/"
         data = {"amount": "INVALID_DATA"}  # invalid data
@@ -218,22 +218,28 @@ class FundSavingsAPITests(APITestCase):
         self.assertEqual(response.data["amount"][0], "A valid number is required.")
 
     def test_user_can_fund_savings_wallet_with_valid_data(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
-        # fund savings wallet.
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
+        # fund user's savings wallet.
         url = "/api/fund-savings/"
         data = {"amount": "500"}
         response = self.client.put(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data, {"amount": "500.00"})
+        self.assertEqual(
+            response.data,
+            {
+                "status": "success",
+                "message": "You have successfully funded your account with 500.00 naira.",
+            },
+        )
 
 
 class WithdrawFundsAPITests(APITestCase):
@@ -262,16 +268,16 @@ class WithdrawFundsAPITests(APITestCase):
         )
 
     def test_user_does_not_have_enough_funds(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # withdraw funds from savings wallet.
         url = "/api/withdraw-funds/"
         data = {"amount": "700"}
@@ -282,16 +288,16 @@ class WithdrawFundsAPITests(APITestCase):
         )
 
     def test_user_can_withdraw_funds(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # withdraw funds from savings wallet.
         url = "/api/withdraw-funds/"
         data = {"amount": "100"}
@@ -306,7 +312,13 @@ class WithdrawFundsAPITests(APITestCase):
         self.assertEqual(
             transactions.first().details, "You withdrew 100.00 naira from your account."
         )
-        self.assertEqual(response.data, {"amount": "100.00"})
+        self.assertEqual(
+            response.data,
+            {
+                "status": "success",
+                "message": "You have successfully withdrawn 100.00 naira from your account.",
+            },
+        )
 
 
 class TransferFundsAPITests(APITestCase):
@@ -337,16 +349,16 @@ class TransferFundsAPITests(APITestCase):
         )
 
     def test_beneficiary_does_not_exist(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "2HJ1vRV0Z&3iD",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # transfer funds from savings wallet.
         url = "/api/transfer-funds/"  # endpoint that requires authorization.
         data = {"amount": "300", "email": "marydoe@gmail.com"}
@@ -358,16 +370,16 @@ class TransferFundsAPITests(APITestCase):
         )
 
     def test_beneficiary_does_not_have_a_savings_wallet(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "2HJ1vRV0Z&3iD",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # transfer funds from savings wallet.
         url = "/api/transfer-funds/"  # endpoint that requires authorization.
         data = {"amount": "300", "email": "janedoe@gmail.com"}
@@ -383,17 +395,17 @@ class TransferFundsAPITests(APITestCase):
             first_name="Jane", last_name="Doe", balance=200.00, user_id=self.user2
         )
 
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "2HJ1vRV0Z&3iD",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
-        # transfer funds from savings wallet.
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
+        # transfer funds from user's savings wallet.
         url = "/api/transfer-funds/"  # endpoint that requires authorization.
         data = {"amount": "1500", "email": "janedoe@gmail.com"}
         response = self.client.put(url, data, format="json")
@@ -409,24 +421,28 @@ class TransferFundsAPITests(APITestCase):
             first_name="Jane", last_name="Doe", balance=200.00, user_id=self.user2
         )
 
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "2HJ1vRV0Z&3iD",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
-        # transfer funds from savings wallet.
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
+        # transfer funds from user's savings wallet.
         url = "/api/transfer-funds/"  # endpoint that requires authorization.
         data = {"amount": "300", "email": "janedoe@gmail.com"}
         response = self.client.put(url, data, format="json")
         # assert transfer was successful.
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(
-            response.data, {"amount": "300.00", "email": "janedoe@gmail.com"}
+            response.data,
+            {
+                "status": "success",
+                "message": "You have successfully transferred 300.00 naira from your account to janedoe@gmail.com.",
+            },
         )
         # retrieve both saving-wallets.
         user1_savings_wallet = Savings.objects.get(user_id=self.user1)
@@ -464,16 +480,16 @@ class UserTransactionsAPITests(APITestCase):
         )
 
     def test_user_has_zero_transactions(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # get user transactions.
         url = "/api/transactions/"
         response = self.client.get(url)
@@ -489,16 +505,16 @@ class UserTransactionsAPITests(APITestCase):
             details="You funded your account with 500 naira.",
             savings_id=self.savings_wallet,
         )
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
             "password": "LENDSQR001",
         }
         response = self.client.post(url, data, format="json")
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # get user transactions.
         url = "/api/transactions/"
         response = self.client.get(url)
@@ -523,7 +539,7 @@ class LogoutAPITests(APITestCase):
         )
 
     def test_user_can_login(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
@@ -534,7 +550,7 @@ class LogoutAPITests(APITestCase):
         self.assertTrue("key" in response.data)
 
     def test_user_can_logout(self):
-        # login user to retrieve token.
+        # login user to retrieve token key.
         url = "/api-dj-rest-auth/login/"
         data = {
             "username": "john",
@@ -542,9 +558,9 @@ class LogoutAPITests(APITestCase):
         }
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # add token to HTTP headers.
-        token = response.data.get("key")
-        self.client.credentials(HTTP_AUTHORIZATION="Token " + token)
+        # add token key to HTTP headers.
+        token_key = response.data.get("key")
+        self.client.credentials(HTTP_AUTHORIZATION="Token " + token_key)
         # logout the user
         url = "/api-dj-rest-auth/logout/"
         data = {
@@ -554,7 +570,6 @@ class LogoutAPITests(APITestCase):
         response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["detail"], "Successfully logged out.")
-        # assert user cannot make further requests as token is now invalid
+        # assert user cannot make further requests as token key is now invalid.
         response = self.client.get("/api/transactions/")
         self.assertEqual(str(response.data["detail"]), "Invalid token.")
-        
